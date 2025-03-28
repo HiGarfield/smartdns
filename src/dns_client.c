@@ -2456,6 +2456,9 @@ errout:
 
 static int _DNS_client_create_socket_tls(struct dns_server_info *server_info, char *hostname)
 {
+	BIO *udp_socket_bio = NULL;
+	(void)udp_socket_bio;
+
 	int fd = 0;
 	struct epoll_event event;
 	SSL *ssl = NULL;

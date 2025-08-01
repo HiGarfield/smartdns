@@ -47,11 +47,6 @@ build()
 	cp $SMARTDNS_OPT $ROOT/opt/etc/smartdns/
 	cp $CURR_DIR/S50smartdns $ROOT/opt/etc/init.d/
 	cp $SMARTDNS_BIN $ROOT/opt/usr/sbin
-	if [ $? -ne 0 ]; then
-		echo "copy smartdns file failed."
-		rm -fr $ROOT/
-		return 1
-	fi
 
 	sed -i "s/# *server-name smartdns/server-name smartdns/g" $ROOT/opt/etc/smartdns/smartdns.conf
 	sed -i "s/^Architecture.*/Architecture: $ARCH/g" $ROOT/control/control

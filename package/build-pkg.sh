@@ -37,7 +37,7 @@ showhelp()
 	echo " build openwrt mips:"
 	echo "   $0 --platform openwrt --arch mips_24kc"
 	echo " build generic linux:"
-	echo "   $0 --platform linux --arch x86-64"
+	echo "   $0 --platform linux --arch x86-64 --with-ui"
 }
 
 build_smartdns()

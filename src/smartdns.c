@@ -948,6 +948,17 @@ void smartdns_restart(void)
 	dns_server_stop();
 }
 
+static const char *smartdns_exec_dir(void)
+{
+	static char start_dir[PATH_MAX] = {0};
+	if (start_dir[0] == 0) {
+		if (getcwd(start_dir, sizeof(start_dir)) == NULL) {
+			snprintf(start_dir, sizeof(start_dir), ".");
+		}
+	}
+	return start_dir;
+}
+
 static int smartdns_enter_monitor_mode(int argc, char *argv[], int no_deamon)
 {
 	char exec_path[PATH_MAX] = {0};

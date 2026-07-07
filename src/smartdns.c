@@ -950,12 +950,25 @@ void smartdns_restart(void)
 
 static int smartdns_enter_monitor_mode(int argc, char *argv[], int no_deamon)
 {
+	char exec_path[PATH_MAX] = {0};
+
 	setenv("SMARTDNS_RESTART_ON_CRASH", "1", 1);
 	if (no_deamon == 1) {
 		setenv("SMARTDNS_NO_DAEMON", "1", 1);
 	}
-	execv(argv[0], argv);
-	tlog(TLOG_ERROR, "execv failed, %s", strerror(errno));
+
+	if( 0 != chdir(smartdns_exec_dir()) ) {
+		tlog(TLOG_ERROR, "chdir failed, %s, %s", exec_path, strerror(errno));
+		return -1;
+	}
+	if (readlink("/proc/self/exe", exec_path, sizeof(exec_path) - 1) > 0) {
+		execv(exec_path, argv);
+	} else {
+		safe_strncpy(exec_path, argv[0], sizeof(exec_path));
+		execvp(exec_path, argv);
+	}
+
+	tlog(TLOG_ERROR, "execv failed, %s, %s", exec_path, strerror(errno));
 	return -1;
 }
 

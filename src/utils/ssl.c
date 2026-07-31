@@ -584,7 +584,7 @@ errout:
 	return -1;
 }
 
-#if OPENSSL_API_COMPAT < 0x10100000
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
 #define THREAD_STACK_SIZE (16 * 1024)
 static pthread_mutex_t *lock_cs;
 static long *lock_count;
@@ -632,7 +632,7 @@ void SSL_CRYPTO_thread_setup(void)
 		pthread_mutex_init(&(lock_cs[i]), NULL);
 	}
 
-#if OPENSSL_API_COMPAT < 0x10000000
+#if OPENSSL_VERSION_NUMBER < 0x10000000L
 	CRYPTO_set_id_callback(_pthreads_thread_id);
 #else
 	CRYPTO_THREADID_set_callback(_pthreads_thread_id);

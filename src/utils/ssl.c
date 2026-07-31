@@ -252,14 +252,13 @@ static void _free_key(struct DNS_EVP_PKEY_CTX *ctx)
 			EVP_PKEY_free(ctx->pkey);
 		}
 #if (OPENSSL_VERSION_NUMBER < 0x30000000L)
-		if (ctx->rsa) {
-			RSA_free(ctx->rsa);
-		}
+		/* ctx->rsa ownership was transferred to ctx->pkey via EVP_PKEY_assign_RSA,
+		 * so EVP_PKEY_free() above already freed it. Do not call RSA_free here. */
 		if (ctx->bn) {
 			BN_free(ctx->bn);
 		}
-		free(ctx);
 #endif
+		free(ctx);
 	}
 }
 
@@ -327,7 +326,11 @@ static X509 *_generate_smartdns_cert(EVP_PKEY *pkey, X509 *issuer_cert, EVP_PKEY
 	X509 *cert = NULL;
 	X509_EXTENSION *cert_ext = NULL;
 	X509_NAME *name = NULL;
+#if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
 	const X509_NAME *issuer_name = NULL;
+#else
+	X509_NAME *issuer_name = NULL;
+#endif
 	int is_ca = 0;
 
 	if (pkey == NULL) {

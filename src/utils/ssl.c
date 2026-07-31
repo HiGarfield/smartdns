@@ -252,8 +252,12 @@ static void _free_key(struct DNS_EVP_PKEY_CTX *ctx)
 			EVP_PKEY_free(ctx->pkey);
 		}
 #if (OPENSSL_VERSION_NUMBER < 0x30000000L)
-		/* ctx->rsa ownership was transferred to ctx->pkey via EVP_PKEY_assign_RSA,
-		 * so EVP_PKEY_free() above already freed it. Do not call RSA_free here. */
+		/* If EVP_PKEY_assign_RSA succeeded, ctx->rsa was set to NULL after
+		 * transfer and EVP_PKEY_free() above already freed it. If the transfer
+		 * failed, ctx->rsa is still non-NULL and must be freed here. */
+		if (ctx->rsa) {
+			RSA_free(ctx->rsa);
+		}
 		if (ctx->bn) {
 			BN_free(ctx->bn);
 		}
@@ -316,7 +320,11 @@ static struct DNS_EVP_PKEY_CTX *_generate_key(void)
 
 	BN_set_word(ctx->bn, RSA_F4);
 	RSA_generate_key_ex(ctx->rsa, RSA_KEY_LENGTH, ctx->bn, NULL);
-	EVP_PKEY_assign_RSA(ctx->pkey, ctx->rsa);
+	if (EVP_PKEY_assign_RSA(ctx->pkey, ctx->rsa) != 1) {
+		_free_key(ctx);
+		return NULL;
+	}
+	ctx->rsa = NULL; /* ownership transferred to ctx->pkey */
 #endif
 	return ctx;
 }

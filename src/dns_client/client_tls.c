@@ -62,7 +62,7 @@ static ssize_t _ssl_write_ext2(struct dns_server_info *server, SSL *ssl, const v
 		return SSL_ERROR_SYSCALL;
 	}
 
-#if defined(OSSL_QUIC1_VERSION) && !defined(OPENSSL_NO_QUIC)
+#if defined(DNS_CLIENT_HAS_OPENSSL_QUIC_POLL)
 	ret = SSL_write_ex2(ssl, buff, num, flags, &written);
 #elif OPENSSL_VERSION_NUMBER >= 0x10101000L
 	ret = SSL_write_ex(ssl, buff, num, &written);

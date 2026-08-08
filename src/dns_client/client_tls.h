@@ -21,6 +21,7 @@
 
 #include "dns_client.h"
 
+#include <openssl/opensslv.h>
 #include <sys/epoll.h>
 
 #if defined(OSSL_QUIC1_VERSION) && !defined(OPENSSL_NO_QUIC)

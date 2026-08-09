@@ -1,0 +1,267 @@
+15a8d5c0be5002760c983fca66fc9beb1818297b|feature: support DoQ.
+fbb27b2e09f6b7069d8167c20ad1b744fe687981|feature: support DNS over HTTP3
+8ff733b23fcebb2c4b7c8df58e213ab17cb094af|dns_client: fix doq ssl poll issue.
+7ee2e1e864f1c6d70cc93bcd7d3a861ffbd961d3|make: update makefile for UI.
+9f5d41235c7e3980b6d600d1b06bef4a7fad1ee1|conf: update config file.
+f522ce969dd648c855a6fa7e79f4b3a8467973ff|make: update makefile
+d92371d6edec0a87f7c24a79b96d7cb856c48e6f|makefile: update makefile
+2303cffe0e5c2c42e9e9eb4c9a527099f3b16960|dns_client: fix quic connection ssl_ctx error issue.
+8a98762c8a16114846bc25b0c8e2d6e4de03059a|dns_client: fix quic ssl poll issue
+f64cf9070979b1c4625e1b722fde94b8bec070d6|dns_client: support proxy for DoQ
+bd5eb7019eaff9a3e608fbd283dda05f07200377|fix ‘udp_socket_bio’ undeclared issue
+e228e184d1caf9fd8dd05337fd4232acf7b2e0a1|dns_client: fix proxy for DoQ not working issue.
+361dc7e34ac418544c8006927161563b325ab97f|makefile: update make for smartdns-ui plugin
+c81846de263909f884cf899aa565a0e2e361989d|docker: bump openssl to 3.4.1
+83a58fc937ed06dadfaa18dd7a9c25296347761e|makefile: update smartdns-ui makefile
+8612d0a46d9c59cfcc19dfb4d27122a90ed5a74c|DoH3: fix http3 parser issue, and fix DoH3 memory leak issue.
+7c1eb03655f2dde4860d1913f0c96b4e19f79769|http_parse: fix http1.1 parse issue for chunked message.
+20f56745c4f2ad2a5a4e1fb927770b3cb8122a69|smartdns: fix data dir create issue.
+3d5580086bb422c05de4b7d1cfa33b8b3e5a109f|dns_client: fix quic multi stream not work issue
+4b142cda0caaa262edb2414413bcbd4bdb0dc3b5|dns_client: fix compile warnings.
+fd9a592dbeecbca6fa53bf9ce1edafde1e335607| smartdns: bump copyright to 2025
+451b3edce200c17c22aa52a45d79b13fe89b576e|code: refactor code structure.
+050c945ecdef80a50ee34be9a94c9f2995ece1d7|dns_client: some code fix.
+a4695fc7fc98686f78d5e652664632a6a4be08d6|https: fix https request issue.
+f8d88108ff08e6d15b852b1398810bc91fc12a3b|smartdns: bump copyright to 2025
+406daf7c217c8651a7fcf726657b14ec87253b91|webui: make log level temporarily
+1ef2cd2686431ea9a299d5ef0db1cb4f9a971422|dns_server: fix potential crash issue.
+c47dcfe6e6da21928401419ca9683780520d836b|dns_server: fix DOT server crash issue.
+78aa7ea83891d04237a7567961b80bc575422ab4|openwrt: fix dnsmasq dhcp address update bug.
+4df0de304086129f38996f771edf9a898b6a3c12|code: refactor code of utils.c
+5c51239b56379b384ff71ba28a323c90b91e04a8|code: refactor code of http_parse.c
+3e9197cb360cb176a9f577c32345eb33134ce106|code: refactor code of dns_conf.c
+920bc8de692934751c88568145d899e2e2aa1a16|code: refactor code of dns_server.c
+9f6e9adaf0b291079a338dfe36854317c1f3203b|code: refactor code of dns_client.c
+92bee44fc91d3393662bc4d5b316a0531d498690|conf: path buffer size is small.
+1f5ef8e254e7c8c4667d381bcf0aa1ce4cff0d3f|makefile: fix clang-tidy missing file issue.
+65fc25c103a66bd5b6ccc6515486c9cea71a3eb1|codesyte: format code.
+f0a6261ae15a53b3276e4ba6c2e28bd854b97009|makefile: fix compile warnings.
+92b2f6ffd0da85612f64aa19757be1bddd1b95c6|code: remove redundant source code of qpack
+9e01acacf9d28e805b0d446e9f3d638d2f13d125|client_tls: verify SAN first, and then CN.
+4e9323dd2b8c5091c892919f5445f553bfa680ab|dns_client: close socket when send fail with specific errno.
+0488b10ec41c31fa846b52cb440035ac4bbafaa4|code: refactor code of fast_ping.c
+b7a47962d33657dbd102e4f4918564ada4c83a46|dns_conf: fix conf_size int overflow bug.
+897b97e53aa8e549a6378e2deb05c172368b0d28|dns_server: reduce ttl when upstream server fail.
+a1432fc81b68ff7433bd2b5f8e3893eab8e79554|cert: generate cert chain instead self signed cert
+2bf153edd8ab6ebecc8a5f563bd301b7e5d7315d|webui: add pagination for /api/client/.
+d1ea6e84f000623c337aa4aa667cce36e6b17861|cert: regenerate cert when cert is invalid.
+12baf71537621d89a4f37fa1e4f4c360f2637684|smartdns.rs: fix compile issue.
+6df6b17d608b4320b6e91aed6df6417654eecd02|dns_stat: use atomic functions when cpu is 32bit
+bc470bacff960acb6115917986517d8bd0208eea|makefile: fix -latomic compile issue
+9de809acfa8ae2bc7b7d86d8f85aedc66576e5c7|audit: fix audit-num default value issue.
+d751fbc73fc228f6c053359ad49e6ac0adadaef4|dns_cache: fix cache memory size issue.
+4046b01eb2bf726c7f7accd367a7a6f173342093|cert: add ddns domain to server cert.
+05e076602e759b5af732c42c364547a7d941790c|ndp: wait more time for NDP result.
+dc77af60dc94580073b0419a0ac6a3a8e11b6c57|conf: fix the problem of setting multiple server groups
+3762387d844fb53e12542bebec12bc6a7629b295|client_quic: suppress expected error logs.
+0c2539e68fe1fe8fd2a960d9d44e1fb5404c9ddd|dns_stat.rs: fix atomic64 issue
+02fb20b8335a4dceca315e56114512b13bf7094a|dns_group: fix bind group not working issue and DoH server issue.
+8863fa1048634485f38e6edbd0199e772061582b|tlog: update tlog
+bc81b36a9172e85a7640c638d79690342ae8aba3|atomic: replace the legacy __sync with __atomic aotmic builtins
+7b4adc78abb1ac3d43e5c07c5ae15c038008a98f|atomic: fix ldflags issue
+64fc9f20fba0e14cb118fe7f145557971cafd858|dns_stats: fix stats_read_and_set issue.
+8838ba1bd9e23b82a7ab65d478779b0b8586f23a|openwrt: update makefile
+d9d274c0f62c24051671798802f28c76bda2ddfa|client_quic: fix race condition.
+b8229dd7097b2552bfb59dfc09465aa9494e7c6c|dns_plugin: fix the issue of hanging when exit
+951d31bb7e6c14afafbf524764a3b9e0b988f1dd|openssl_quic: add macro OPENSSL_NO_QUIC
+9417585f79a9217526e1ee09f3cea07d1fde8897|server: fix min-ttl issue when ping is unreachable
+4fdcacc352796a8ccee7315a77e798938c489d15|Add: quic protocol support
+1df5fe3c78d4535f10a7be99d72dff511d09ce60|openwrt: add DoH3 protocol support
+e26ecf6a52851f88e2937448019f74b753c0e6dc|mdns: add ipv6 support.
+e1d95ea2f27b5d26431f9c84c88be750d5afc71c|openwrt: luci adds ui support
+95b077742df6a1a4dba4fcc7714229c379470a16|openwrt: simplified license header
+b35f9e42f46d5fd5b77e28241b031bfe8a9c81e0|openwrt: dont touch dhcp config when auto_set_dnsmasq set
+4f768845bc872c8b9cd40cac5f4504d5d140c07d|lint: fix lint warnings
+fd1afaeaf97c3781c09364e0dc76e32627914fd7|webui: fix max_log_age_ms not work issue.
+3fba0f28ecc7235b2d88e6def70c4155eea0566e|feature: add local-domain options.
+130a9c06016d4aa12fede5edc94dc847c81640d7|tlog: update.
+48e439da7493b4fbaa162fa21a6ac6baea909a4a|dns_cache: try to fix crash issue.
+8bae7c110a18520889e8095cd63511b98f7be847|ipv6: fix ipv4 in ipv6 address issue.
+afaad9b529525e9a44e1d39176b611bad6707630|radix: fix ipv4 mapped ipv6 address.
+9e5980ec06cd831283f8e395a27016cbc858e1fb|ui: update ui plugin.
+ea4ea566fb3624baf361c6fb22c33fed1746782b|openwrt: fix max-query-log-age
+43c7107920edc5c6edb103fbe6e2e19d9c229281|build: update build script, support packaging all libraries together.
+891a59666aa8426abd8db397a0b79325d9c9662d|build: fix build script issue.
+bfb0382ea4d03d25c90da79cc4ddf66e9172f673|docker: add webui.
+922e7b76f92efdce5aac6cc4982578202172dc50|build: fix build script issue.
+0c599bbbcf6df3e70c834e45157f152a3249bef3|server: fix  issue of missing IP address in http record when not checking speed.
+7c1a2325d810604216c7147668af86a511783d41|webui: Fixed the issue that password modification did not take effect
+55a4b360b1382ea8f67849c13959dbd18e7bda38|webui: optimize http server speed with http2
+0cfa5d69be3f25fd3f97f416ce337fe53081cb68|webui: fix config option tail space issue, add some init log and fix memory leak when exit.
+b54703008f619162a526283e33a16c7355a35219|Add "Accept: application/dns-message" as for RFC 8484 Guidance
+2e0e5403166a7d77361c8f0b17e8d0fe0067de6b|webui: Automatically check whether IPv6 is supported
+156c8db171f00a5d661a0faf92c18cbc319a4866|fix(security): prevent buffer overflow in domain_rule.c
+f141b8b02f814a7abcc2c752ea0340ea02f98b52|webUI: fix max log age not work issue.
+fed4570ac16328b5605d75f9a59fdbae181bd5e6|webUI: enable sqlite auto vacuum
+4027503602c1dab32d2df5b8a471bc5778d1a536|webUI: update sqlite vacuum parameters.
+eca3d65f2d4dfc9a0ab338967199f762c6d85360|webUI: update sqlite vacuum parameters and update cargo.toml
+fa6a1757b20bb0f7ceb9614e453729df8d0ff370|lint: fix lint warnings.
+5222e750073245c08ff847d0d341a458388009b9|webUI: fix incremental_vacuum issue.
+762a7d89004fd4c9c3e1a0b438d5789909e620c2|webUI: add audit log API.
+b40c39af8e6b48b3af1733f7b796cc2e2d0a1ff3|audit: audit internal dns query.
+8d197f14352d27732428566de9dd2567f1fd0fbb|plugin: add plugin version check.
+aa6146838262b47882835a8727e76f6cd033dd17|cache: fix cache serve-expired TTL issue.
+3c4f2800585071880b60cc19177d47aaddebfdc9|mdns: fix mdns issue
+34c5e715556d17ea9ddc8c869f9138f7c301f7f7|https-record: add noech (#2132)
+25a8e612a80711f61fda37f26b9652818b184e7b|webui: add fail query count, add server security status, add error message when audit is disabled.
+0f1912ab020ea9a60efac4732442f0bb7093f40b|tlog: add config for color mode.
+885f677225b6d65453de6e5657677eeb318ebd6d|ipset: fix ipset issue when response-mode is fastest-response
+38b5a30abca16de04d4e4bb2bd2358cae758fa6e|optimize nft add performance (#2148)
+73413c5ab0f7bf1ecbe4c2e3c8ef422cae02bab5|webui: fix openwrt package compile failed issue when aws-lc upgrade to 1.60.
+745c65dd1e32d8b5f9cb5fc3c683830a4e06069a|cache: fix cache crash issue.
+73933827a594c0202e91ea7a86399647c46d9bd6|webui:  counts the number of discarded requests.
+6371f63d567683e03995fc91a5a6c6eb03606de5|webui: Remove error log for batch timer in data server
+1f0524798071ec8fffa5da625a112fa6922901b3|update code
+30992f22a9a6916854e04494e13161a137d9cd00| dns64: follow RFC 8880
+1339810604545c2fcd44d4ef893908bcaf554440|webui: reduce binary size, increase cache size.
+3580fdfbf732b82bab02ba0f19a1f18529592d7a|conf: fix compile warnings
+9e2474caf19be90a21c87ccf0b1b3300c7ba9fc1|dns_cache: make cache case insensitive
+72b60e4ae88c6fb0fb58bd3dfb82911795e6e57a|openwrt: add apk packages.
+f73d656994109e9428fbca1b9cc2bf06009149b0|smartdns: fix startup issue.
+efecfb42ede42d6e141f686b72e3d30f3b971752|group: support group inherit.
+2044be5e78c11ec26af32f165b31809e4c5c79ab|openwrt: fix init script issue
+73f4930a6e6d4447afb3abcd41d01f73b80b0009|bug fix
+9b57a83a88f6c2a5c49c6d1a68cd7663fe9c9e7d|fix: allow set and default empty server name
+3e48a94b9875b74509c5265d740915e7c8e60315|dns_conf: server name support i18n
+9563b97a7ae8c33d8b8bf4bdd3e84fa7c077b439|timer: fix sleep timer misalignment issue
+aac86825783408a70a5023a2c560458b49f3b4fa|rules: reduce memory use.
+c0487cf57b4b20112d09386667beb2fbf894bdca|lint: fix lint warnings.
+4ae97b9ab8391148d66b530c6c6122d887309ce4|fast_ping: add tcp syn ping support
+4ac40e1bb9bf40a8e5fee275f53d7ee608af7748|tcp_syn: update code.
+7946a2f50a3b0f68f440e0f21d61b784bbcbca30|speed_check: reduce latency when remote server is slow or unreachable.
+2c73a3806c3c98cc725098de432b161d1a109235|rules: fix address flags issue.
+8c361de213db7b3d997aee695d437f1101a6e904|memory: replace malloc+memset with calloc for better performance
+287dac8e9087de661e671293ac2e63a26494ca62|compile:fix compile warnings.
+2d5907c559b615d34ba52281004f59802b716272|bugfix: fix duplicate result check issue.
+abec09821aae98a2bedfc1d3a0305881c8e11e2b|docker: fix docker build fail issue.
+38450f248a3262511f426883180f7435af60680d|SOA: add local domain SOA support.
+3582bad807275d5e4fbd735c045a26cb74d51434|Makefile: Parallelize build using all available CPU cores
+eacb634169ad12fc8b3a0c831acf8f835e2ec85b|http2: Implement HTTP/2 protocol support
+9d7a4f92a51a09b167afd533f7a2247126778d82|feature: upstream server add http2 support
+4576afa8f68843c5c0733a4fe736d2995b996fcc|feature: Introduce HTTP/2 server support
+5f90115a103c4c6ef0ebcc9a33c4b321c665afa9|feature: indtroduce DDR rfc9462 support.
+0fcba50292aaa082fba7ca494c98f6fbe8c2d110|fix: fix http3 crash when free stream
+4b71d75965a34018a620067c1e32173f2f0a6e14|fix: fix race condition.
+7595f5d177637749871bb34a99a20771f0a24912|fix: refactor Http2 client code.
+4b7fd46539ed81ccad9a471a493aa307ed576313|fix: fix crash issue.
+e4f4bfe3c57526761d0f867ac9e6e6738331b560|fix: fix crash isshe when http2 send failed
+e72c37e6c2350f8896e7c3d64a8359d55f47622b|fix: fix crash when epoll failed.
+ff1b837b3044c79dc8fce3830774b6b8eee38e5f|http2: refactor HTTP/2 polling logic to fix deadlock and crash issue.
+80566fe68f81c67c998390303695944763200771|fix: fix race condition in client_quic.c, align with http2 epoll_ctl locking
+5b684cf2d33b8e7e3ba02fd50c73597110b7ccf4|fix: avoid ping block caused by a large number of requests
+174cbcefbc00b0aaa98e88024cc0bab7700ea6f1|http2: Add parameter validation and string safety checks to HTTP/2 library
+7bb2ddfcdcd8ecb044294a6153856cf93ab59d05|client: suppress error logs.
+a4f170ba10b3eec8ca255627d973e33017a7c498|Fix HTTP/2 implementation issues: concurrency, stream management, frame validation, memory safety, and interface improvements
+9fa59ec4f0612d177730a16f792eb00ea5a997b0|http2: Fix stream removal and header freeing
+4de696359d2c4628f3672eff8b777a9b680d4de6|http2: try fix race condition
+960480ee090dc3a6cc6fc87d3d32ad4ae925bb3f|http2: fix memory leak issue.
+9929ddd0981bf95a82e05bca79e60377a74efa6f|Fix race condition in _dns_client_close_socket_ext
+12b2274822a2825acf6aa03a49189e4bfed5b527|Improve error logging for epoll_ctl failures in TLS, TCP, and QUIC clients
+e6160f63329558d5d3e6c64fe89c35085736ed94|dns_server: fix ttl issue when cache is disabled.
+bb480872675fcf75ff36799e5f7991bcb8ffcba2|dns_cache: fix crash caused by race condition
+6156dd8d2c8ab40be6d98fac1128d74fe03bf594|http2: suppress log.
+ddc1bdae7b8b4fa1eec540ba86166ac8b3eb6122|testcase: fix testcase issue.
+108f16115199a5c3e7e088e258137e735a4c1bd7|http2: update http2 code.
+e2e10acff7b31d4a64983bb5342aefa7691e18cc|fix: avoid memory consumption issue from invalid conf-file settings
+dcc981633bd87b034952125d65c45e2fcece9daa|fix: resolve fast_ping races and proxy crash
+20aa651a13cd7c9422169bb29bb21f34d2256aaa|http2: fix http2 race condition issue.
+e9bdf78b96a33fd4224c5027f3fd61c9528c3904|socket fd: fix double close issue, remove unnecessary variables, add fd validation
+2e60a0cce74da57d4e17eb34bb837e75f4fde45c|domain-rule: Fix domain rule precedence to allow multiple address rules for same domain with different matching types
+678ac443a6a97f7bf83c41d84fe466e74e6cd36b|http2: fix http2 race condition.
+cabc8d73a8164003fc58f0aad5e15900ddd3b452|http2: fix race condition
+bc991c61e769e063d336a3dc161d59744232e305|http2: try fix crash on stream error.
+20a59e69e9ecadda5296a50c4ca3f22f5155964c|http2: fix memory leak when retry.
+34d4d37acfd10ed8fd9b2191159ec37e28caaa11|proxy: fix memory leak for http proxy
+2d57c4b4e1add9b4537aeb403f794a084727e1c8|dns: Fix stack buffer overflow in DNS SVCB/HTTPS record parsing
+5461e3850c944a34c1fe2c24490b36888a1838d7|fix: https-record hint filter failed when response-mode is fastest-response
+08b5482a5165cca834e2ffdd1bcbb9b5ec1f4d91|fix: fix http-record test case fail issue.
+b7f1f4913dcf47bec417a328c095b7920f93cd51|fix: return NOERROR when all ips are ignored.
+858c2a8cfe2f4e3d2e81a59b999be198a5b64c92|domain_rule: add no-ignore-ip flag
+136c0c2690138d6dedd8b520281aafe49112643f|http2: try fix crash issue.
+b6139a199232140447aff6c4ec111c222ac84993|fix use after free
+91a6b9e744f8899d0e3735a8c0ac7125db084a30|Remove the incorrect check for HTTPS SOA response logic (#16)
+09fe6a8c441141a01bbb4931ab6fca8bed4879d8|Add handling for HTTPS and SVCB query types (#17)
+861d6475d8c1384a5484ab2fbe86865084799361|http2: Fix HTTP/2  DoS vulnerabilities
+3d744ecb27b5a2a0c05433aabf3fbe564643fa2f|Fix persistent 00-MAC logging caching failure
+6803a42940021670bb16a799a15f85680c0ba001|fix test case issue.
+6d2c7e2daefc371c8be56773d302508eaa38e967|ui: upgrade dependencies
+c0312e1cbcb4f33b6c4dfc65a21dbd8289ba74a6|fix jwt token calc err
+115db1f4537c1840c14abd63d4ce375d1784390f|domain_rule: fix domain-set rules not working when -.* rule exists.
+5047de4f93d3de131cd257490322e14ca101c82c|try to fix client MAC NULL issue
+b8560107e0a702f22ce967c71a9d3bd76d7ba137|fix stat not refresh while domain table has little data
+fbe166d7249ef2ad360cc719def8f2f9eb93e55c|Modify serve_expired logic to include 'no' option
+0c3fdd0e98e6e7672f7af02591ae385e3c8733bd|Increase detailed display of intercepted domains and cached domains (#2309)
+98a2cf45e4f546d1438fc0479b5752668d930849|http-record: fix http-record  unexpect delay issue.
+c13c62a5b5ec24398c6748cc6615170f085c57fd|retry if all ips are skipped (#2307)
+c087eea0b78147dfc971418955b34e50e8a86d04|http-record: fix http-record  unexpect delay issue.
+041415bc3d90aae2431230a759ae07f4af96da10|Fail closed on configured CA load errors
+88cffee4b47d82b6eff5274099a101aaad5c1a02|Fix cache timer race during prefetch
+a1b8a3f9ec94b0946644065ce435062a75c49ae5|fix: smartdns-ui crash when loglevel is off
+eab7386e86e195d64de4ee4d89ba3e8264b02fd9|fix: avoid closing reused http2 stream twice
+861c85c5db4a6cc4174245d1f8f321def25aa45b|Fix shutdown cleanup crash
+4250bad010d2b5f1e8deb5b10ff7f2ff81b04d40|Skip cache writes while shutting down
+a62adcfdba6885681c811fee741e2ee36a98497f|Fix HTTP3 header buffer bounds
+2b77ec7d03e067fc35cc127b1b60a598e282a7c0|Fix QUIC stream receive reassembly
+f334d0ef26b87b762235f6d9755b7cab380e6c06|Fix HTTP2 continuation header reassembly
+35c518e1ea48d5a6312c762776d15c3ddc545f12|Fix srv-record issue.
+cbe15165981f6823e864a2dfe8beefb41bc33897|Fix HTTP3 fragmented response handling
+aa237f3914431dbb480bda296a11f6ca538ae63f|Fix cache lookup during shutdown
+9c5459ae1753826e9935f4e4840cc043de409534|capability: add DAC_READ_SEARCH for file access after dropping root
+ed4df240cc720aebaa63a5342ea20629ff98bcba|misc: check stat before mkdir in create_dir_with_perm
+457412ad4141a21f6b513d3ba99af844acfee6be|fix: handle fragmented DoH3 responses
+f9ef8fab0bcd7512611133f6526b34d3d20b17b9|luci: add QUIC and HTTP3 upstream options
+e7350a2a72f2f2966a10996223809d6d3133e5e2|fix: validate HTTP2 content length
+9367e7d6424757ad4b128e3a4b7ba81ff1a8b046|fix: handle http2 stream send errors
+d94a9ab3f3f848a210f6f07102e48f1de9f558df|feat: support odhcpd lease file
+9de4939bb24bb0dd705c4d4abd33e42df4718551|fix: handle fragmented DoH3 responses without content length
+77c3495f143778912b3a995ba8b910fab4b4f345|fix: keep DoH completeness out of HTTP3 parser
+8089dee56da5355d5156cecf844db4551dec8b1c|fix: keep HTTP/2 connection reusable after stream reset
+a5138cbbc40fca5d7bd39935de364f1d741804de|fix: wait for complete DoH3 response fragments
+c521ebe7e5b4466b8a90548a66fcd899efe1a6f6|fix: truncate oversized local DNS responses
+5080f26a3125239a0dd80a0d8a380731f0c763b2|fix: handle http2 buffered stream retry lifecycle
+5bbc74c7317f6e2a06f8ac2ea5b31bd6f57a4af8|fix: avoid http2 readable stream busy loop
+c43e7a0d875a9e790627863e4405add2cfcf4cba|log missing lease files at debug level
+242d4e1267d0e2d0943c51c2afac61717b65c36f|fix: avoid http2 compressed body busy loop
+6c8773acdf4a898bbcc88e31c9b6d9256b80467e|feat: support compressed http3 bodies
+b6bb99f42e5afc67eabe574591b1142510738d73|feat: support local TXT records
+819f598dc65ac1427cac38be7395230d6b215dd8|Fix HTTP2 closed stream retry handling
+9277fb758b047b90e93b393f33fd10a08c0aacb7|feat: add HTTP DNS query support (bind-http) and tests
+32f814f312dd4bb5cbb453e97b3c3f026029f61c|fix query log table filter of domain
+19ffb8df11a48ea83e91586b91d92ad34d3c7b62|fix: drain queued HTTP/2 streams
+488b36c503ac91d9c19587e7c77b1eae7703ab19|fix: prevent int32_t overflow in chunked Transfer-Encoding parser
+9b8715fb3a8b90a5988aaa551e2f0ad00cb13254|test: add HTTP/2 DoH concurrency stress coverage
+490a3d7a3246346dcee0ce97e4c372355a15ede9|luci: add DDR enable option
+f066a8ae0cc7eb3b4ed798a222b13c9d5d41f0f7|libconf: handle key-only directives in parser
+ae598906806dfece8dbdb0513bb1367baba0c5b9|Fix HTTP/2 DoH response flow control handling
+5a7a16a91bc6a524710c2c9db0b64615e1933cef|Fix OpenSSL 4 compatibility warnings
+b9b5766abeae0b01f88dd0ddb10f625c8de5b6e2|Stabilize HTTP2 upstream stress test
+14e8188cfd48e06f783ad539fd298299ca6af475|modify dnsmasq policy
+983db513ebf6074250706cc01ac3cdf77de18626|http2: fix hpack settings synchronization
+c3c0ea78f05e60ca784e8273d8cfbe9fa5acae7f|Fix HPACK encoder initial dynamic table size
+299e7c17e45d79888c78c2cabbf9c2ea559c3097|dns-client: hold QUIC stream during poll
+62ad56b594e6a40bfce6be1e754974834bfdfa10|capability: keep only permitted capabilities
+676bdd14d25a80bdaa5b293cade0f69043744490|openwrt: defer dnsmasq restart for upstream changes
+a827e8b4af40858f7b74086f38c3ecefcda98bab|Improve SSL certificate extension management (#2390)
+274d05f9de84b621fdd2a34feb8aad0845992c79|client: handle deferred http2 streams after completion
+2b42687a0ed0e441cb5d02c177e1a816b538c994|Fix HPACK dynamic table reuse UAF
+b16540b6f9f2928d620d7e501f710efdcc19b92c|Fix fast ping shutdown notify drain
+0a726a42d7f432073efe3b74fc54a98d9e8f3a9c|Fix HPACK dynamic name callback UAF
+1ee4ed167607041c67a679fb76d1e02730d9b63a|Prevent the stream ID reaches the limit (#2397)
+6bae4c9e018d66ddeab7e6413522244530174ec0|Fix HTTP/2 DoH send before peer settings
+75c2040b9e9ee55b72e291cf2662fa4249cf0690|nftset: support multiple targets per domain rule (#2400)
+2b2b31f1e5acf6cbb975f17c600ccc6bffd03cdf|check Content-Encoding value only, no infer
+5ec3f034bedfdccfc13c9343d94f9a0a4c2f7f88|Add cert auto-generate option
+9a6b428c837878eb2edbfdec968780907e569d11|fix: harden http2 body and cache loading
+168782fc72b417d09f5838ed83a0263e1cd00a85|feat: support multiple ipset targets per domain and refactor domain rule management
+5f1e5b2d9a04e3d0656cd86a9269435796de06d1|ci: add release workflow for cross-compiling and automatic packaging
+f82052cece405c27332563d145157c9fe288460f|ci: use compilation time for release version
+59494009eb51b3e8484f6d3620ed0bb6af9d62a8|fix build warning
+6f9da63a5e1b9674dd45bf3ce11e6325a1940ef4|fix: enforce directional HTTP2 stream limits
+9cf5318468bc871557dc256b456878c606713450|fix mac address
+944f4ea96b81c3f567034a2f8aecc985378f0d90|fix: avoid caching CNAME targets independently
+53d7471e693992762d8fd105647a2c5e47a9c1e9|fix: respect dualstack-ip-selection-threshold when peer ping is pending
+b7aa763bbd67fc4ec475435f193af31b35f7dd30|Fix serve_expired configuration logic in smartdns
+239c36900f7cd61e33e32c2945cb5024242aacfd|build: fix missing musl loader symlink
+e973968eceb718362c3a8d0370d517f8850a41f5|build: validate dynamic linker chain
+c6525e9b70ce0c0d05611042b9a465ea2e724869|fix: dns_conf.has_tcp_syn_check never set due to redundant raw-cap check
+21c940edc65520849ba03544c5cf8d9cf326e680|fix: avoid duplicate dhcp_option entries on repeated smartdns service starts

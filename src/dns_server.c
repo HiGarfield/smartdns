@@ -8066,13 +8066,10 @@ static int _dns_server_tcp_process_one_request(struct dns_server_conn_tcp_client
 				if (len == -1) {
 					ret = 0;
 					goto out;
-<<<<<<< HEAD
-=======
 				} else if (len == -3) {
 					tcpclient->recvbuff.size = 0;
 					tlog(TLOG_DEBUG, "recv buffer is not enough.");
 					goto errout;
->>>>>>> 1ef2cd2 (dns_server: fix potential crash issue.)
 				}
 
 				tlog(TLOG_DEBUG, "parser http header failed.");

@@ -8071,11 +8071,7 @@ static int _dns_server_tcp_process_one_request(struct dns_server_conn_tcp_client
 				goto out;
 			}
 
-<<<<<<< HEAD
-			len = http_head_parse(http_head, (char *)tcpclient->recvbuff.buf, tcpclient->recvbuff.size);
-=======
-			len = http_head_parse(http_head, tcpclient->recvbuff.buf + proceed_len, tcpclient->recvbuff.size);
->>>>>>> c47dcfe (dns_server: fix DOT server crash issue.)
+			len = http_head_parse(http_head, (char *)tcpclient->recvbuff.buf + proceed_len, tcpclient->recvbuff.size);
 			if (len < 0) {
 				if (len == -1) {
 					ret = 0;

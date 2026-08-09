@@ -1,0 +1,67 @@
+bd5eb7019eaff9a3e608fbd283dda05f07200377|fix ‘udp_socket_bio’ undeclared issue
+891a59666aa8426abd8db397a0b79325d9c9662d|build: fix build script issue.
+922e7b76f92efdce5aac6cc4982578202172dc50|build: fix build script issue.
+156c8db171f00a5d661a0faf92c18cbc319a4866|fix(security): prevent buffer overflow in domain_rule.c
+9b57a83a88f6c2a5c49c6d1a68cd7663fe9c9e7d|fix: allow set and default empty server name
+0fcba50292aaa082fba7ca494c98f6fbe8c2d110|fix: fix http3 crash when free stream
+4b71d75965a34018a620067c1e32173f2f0a6e14|fix: fix race condition.
+7595f5d177637749871bb34a99a20771f0a24912|fix: refactor Http2 client code.
+4b7fd46539ed81ccad9a471a493aa307ed576313|fix: fix crash issue.
+e4f4bfe3c57526761d0f867ac9e6e6738331b560|fix: fix crash isshe when http2 send failed
+e72c37e6c2350f8896e7c3d64a8359d55f47622b|fix: fix crash when epoll failed.
+80566fe68f81c67c998390303695944763200771|fix: fix race condition in client_quic.c, align with http2 epoll_ctl locking
+5b684cf2d33b8e7e3ba02fd50c73597110b7ccf4|fix: avoid ping block caused by a large number of requests
+a4f170ba10b3eec8ca255627d973e33017a7c498|Fix HTTP/2 implementation issues: concurrency, stream management, frame validation, memory safety, and interface improvements
+9929ddd0981bf95a82e05bca79e60377a74efa6f|Fix race condition in _dns_client_close_socket_ext
+e2e10acff7b31d4a64983bb5342aefa7691e18cc|fix: avoid memory consumption issue from invalid conf-file settings
+dcc981633bd87b034952125d65c45e2fcece9daa|fix: resolve fast_ping races and proxy crash
+5461e3850c944a34c1fe2c24490b36888a1838d7|fix: https-record hint filter failed when response-mode is fastest-response
+08b5482a5165cca834e2ffdd1bcbb9b5ec1f4d91|fix: fix http-record test case fail issue.
+b7f1f4913dcf47bec417a328c095b7920f93cd51|fix: return NOERROR when all ips are ignored.
+b6139a199232140447aff6c4ec111c222ac84993|fix use after free
+3d744ecb27b5a2a0c05433aabf3fbe564643fa2f|Fix persistent 00-MAC logging caching failure
+6803a42940021670bb16a799a15f85680c0ba001|fix test case issue.
+c0312e1cbcb4f33b6c4dfc65a21dbd8289ba74a6|fix jwt token calc err
+b8560107e0a702f22ce967c71a9d3bd76d7ba137|fix stat not refresh while domain table has little data
+88cffee4b47d82b6eff5274099a101aaad5c1a02|Fix cache timer race during prefetch
+a1b8a3f9ec94b0946644065ce435062a75c49ae5|fix: smartdns-ui crash when loglevel is off
+eab7386e86e195d64de4ee4d89ba3e8264b02fd9|fix: avoid closing reused http2 stream twice
+861c85c5db4a6cc4174245d1f8f321def25aa45b|Fix shutdown cleanup crash
+a62adcfdba6885681c811fee741e2ee36a98497f|Fix HTTP3 header buffer bounds
+2b77ec7d03e067fc35cc127b1b60a598e282a7c0|Fix QUIC stream receive reassembly
+f334d0ef26b87b762235f6d9755b7cab380e6c06|Fix HTTP2 continuation header reassembly
+35c518e1ea48d5a6312c762776d15c3ddc545f12|Fix srv-record issue.
+cbe15165981f6823e864a2dfe8beefb41bc33897|Fix HTTP3 fragmented response handling
+aa237f3914431dbb480bda296a11f6ca538ae63f|Fix cache lookup during shutdown
+457412ad4141a21f6b513d3ba99af844acfee6be|fix: handle fragmented DoH3 responses
+e7350a2a72f2f2966a10996223809d6d3133e5e2|fix: validate HTTP2 content length
+9367e7d6424757ad4b128e3a4b7ba81ff1a8b046|fix: handle http2 stream send errors
+9de4939bb24bb0dd705c4d4abd33e42df4718551|fix: handle fragmented DoH3 responses without content length
+77c3495f143778912b3a995ba8b910fab4b4f345|fix: keep DoH completeness out of HTTP3 parser
+8089dee56da5355d5156cecf844db4551dec8b1c|fix: keep HTTP/2 connection reusable after stream reset
+a5138cbbc40fca5d7bd39935de364f1d741804de|fix: wait for complete DoH3 response fragments
+c521ebe7e5b4466b8a90548a66fcd899efe1a6f6|fix: truncate oversized local DNS responses
+5080f26a3125239a0dd80a0d8a380731f0c763b2|fix: handle http2 buffered stream retry lifecycle
+5bbc74c7317f6e2a06f8ac2ea5b31bd6f57a4af8|fix: avoid http2 readable stream busy loop
+242d4e1267d0e2d0943c51c2afac61717b65c36f|fix: avoid http2 compressed body busy loop
+819f598dc65ac1427cac38be7395230d6b215dd8|Fix HTTP2 closed stream retry handling
+32f814f312dd4bb5cbb453e97b3c3f026029f61c|fix query log table filter of domain
+19ffb8df11a48ea83e91586b91d92ad34d3c7b62|fix: drain queued HTTP/2 streams
+488b36c503ac91d9c19587e7c77b1eae7703ab19|fix: prevent int32_t overflow in chunked Transfer-Encoding parser
+ae598906806dfece8dbdb0513bb1367baba0c5b9|Fix HTTP/2 DoH response flow control handling
+5a7a16a91bc6a524710c2c9db0b64615e1933cef|Fix OpenSSL 4 compatibility warnings
+c3c0ea78f05e60ca784e8273d8cfbe9fa5acae7f|Fix HPACK encoder initial dynamic table size
+2b42687a0ed0e441cb5d02c177e1a816b538c994|Fix HPACK dynamic table reuse UAF
+b16540b6f9f2928d620d7e501f710efdcc19b92c|Fix fast ping shutdown notify drain
+0a726a42d7f432073efe3b74fc54a98d9e8f3a9c|Fix HPACK dynamic name callback UAF
+6bae4c9e018d66ddeab7e6413522244530174ec0|Fix HTTP/2 DoH send before peer settings
+9a6b428c837878eb2edbfdec968780907e569d11|fix: harden http2 body and cache loading
+59494009eb51b3e8484f6d3620ed0bb6af9d62a8|fix build warning
+6f9da63a5e1b9674dd45bf3ce11e6325a1940ef4|fix: enforce directional HTTP2 stream limits
+9cf5318468bc871557dc256b456878c606713450|fix mac address
+944f4ea96b81c3f567034a2f8aecc985378f0d90|fix: avoid caching CNAME targets independently
+53d7471e693992762d8fd105647a2c5e47a9c1e9|fix: respect dualstack-ip-selection-threshold when peer ping is pending
+b7aa763bbd67fc4ec475435f193af31b35f7dd30|Fix serve_expired configuration logic in smartdns
+239c36900f7cd61e33e32c2945cb5024242aacfd|build: fix missing musl loader symlink
+c6525e9b70ce0c0d05611042b9a465ea2e724869|fix: dns_conf.has_tcp_syn_check never set due to redundant raw-cap check
+21c940edc65520849ba03544c5cf8d9cf326e680|fix: avoid duplicate dhcp_option entries on repeated smartdns service starts

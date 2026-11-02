@@ -20,11 +20,10 @@
 #include "smartdns/tlog.h"
 #include "smartdns/util.h"
 
+#include "smartdns/lib/openssl_compat.h"
+
 #include <ifaddrs.h>
 #include <linux/limits.h>
-#include <openssl/crypto.h>
-#include <openssl/ssl.h>
-#include <openssl/x509v3.h>
 #include <pthread.h>
 #include <sys/stat.h>
 #include <time.h>
@@ -394,10 +393,10 @@ static X509 *_generate_smartdns_cert(EVP_PKEY *pkey, X509 *issuer_cert, EVP_PKEY
 		}
 	}
 	X509_set_subject_name(cert, name);
-	X509_set_issuer_name(cert, issuer_name);
+	X509_set_issuer_name(cert, dns_unconst(X509_NAME *, issuer_name));
 
 	if (san != NULL && san[0] != '\0') {
-		cert_ext = X509V3_EXT_conf_nid(NULL, NULL, NID_subject_alt_name, san);
+		cert_ext = X509V3_EXT_conf_nid(NULL, NULL, NID_subject_alt_name, dns_unconst(char *, san));
 		if (cert_ext == NULL) {
 			goto errout;
 		}
@@ -407,7 +406,7 @@ static X509 *_generate_smartdns_cert(EVP_PKEY *pkey, X509 *issuer_cert, EVP_PKEY
 	}
 
 	const char *basic_constraints = is_ca ? "critical,CA:TRUE" : "CA:FALSE";
-	cert_ext = X509V3_EXT_conf_nid(NULL, NULL, NID_basic_constraints, basic_constraints);
+	cert_ext = X509V3_EXT_conf_nid(NULL, NULL, NID_basic_constraints, dns_unconst(char *, basic_constraints));
 	if (cert_ext == NULL) {
 		tlog(TLOG_ERROR, "Failed to create basicConstraints extension");
 		goto errout;
@@ -417,7 +416,7 @@ static X509 *_generate_smartdns_cert(EVP_PKEY *pkey, X509 *issuer_cert, EVP_PKEY
 	cert_ext = NULL;
 
 	const char *key_usage = is_ca ? "critical,keyCertSign,cRLSign" : "digitalSignature,keyEncipherment";
-	cert_ext = X509V3_EXT_conf_nid(NULL, NULL, NID_key_usage, key_usage);
+	cert_ext = X509V3_EXT_conf_nid(NULL, NULL, NID_key_usage, dns_unconst(char *, key_usage));
 	if (cert_ext == NULL) {
 		tlog(TLOG_ERROR, "Failed to create keyUsage extension");
 		goto errout;
@@ -427,7 +426,7 @@ static X509 *_generate_smartdns_cert(EVP_PKEY *pkey, X509 *issuer_cert, EVP_PKEY
 	cert_ext = NULL;
 
 	if (!is_ca) {
-		cert_ext = X509V3_EXT_conf_nid(NULL, NULL, NID_ext_key_usage, "serverAuth");
+		cert_ext = X509V3_EXT_conf_nid(NULL, NULL, NID_ext_key_usage, dns_unconst(char *, "serverAuth"));
 		if (cert_ext == NULL) {
 			tlog(TLOG_ERROR, "Failed to create extKeyUsage extension");
 			goto errout;
@@ -439,7 +438,7 @@ static X509 *_generate_smartdns_cert(EVP_PKEY *pkey, X509 *issuer_cert, EVP_PKEY
 
 	X509V3_CTX ext_ctx;
 	X509V3_set_ctx(&ext_ctx, issuer_cert ? issuer_cert : cert, cert, NULL, NULL, 0);
-	cert_ext = X509V3_EXT_conf_nid(NULL, &ext_ctx, NID_subject_key_identifier, "hash");
+	cert_ext = X509V3_EXT_conf_nid(NULL, &ext_ctx, NID_subject_key_identifier, dns_unconst(char *, "hash"));
 	if (cert_ext != NULL) {
 		X509_add_ext(cert, cert_ext, -1);
 		X509_EXTENSION_free(cert_ext);
@@ -605,7 +604,12 @@ errout:
 	return -1;
 }
 
-#if OPENSSL_API_COMPAT < 0x10100000
+/*
+ * Keyed on the library version, not on OPENSSL_API_COMPAT: the latter describes
+ * the API level the caller asked to hide and is overridable from the command
+ * line, so using it here could skip initialisation on a real 1.0.x build.
+ */
+#if SMARTDNS_NEED_LEGACY_INIT
 #define THREAD_STACK_SIZE (16 * 1024)
 static pthread_mutex_t *lock_cs;
 static long *lock_count;
@@ -628,7 +632,7 @@ static __attribute__((unused)) unsigned long _pthreads_thread_id(void)
 	return (ret);
 }
 
-#if OPENSSL_API_COMPAT >= 0x10000000
+#if SMARTDNS_OPENSSL_AT_LEAST(SMARTDNS_OPENSSL_V_1_0_0)
 static __attribute__((unused)) void _pthreads_thread_id_cb(CRYPTO_THREADID *id)
 {
 	CRYPTO_THREADID_set_numeric(id, _pthreads_thread_id());
@@ -660,7 +664,7 @@ void SSL_CRYPTO_thread_setup(void)
 		pthread_mutex_init(&(lock_cs[i]), NULL);
 	}
 
-#if OPENSSL_API_COMPAT < 0x10000000
+#if SMARTDNS_OPENSSL_BEFORE(SMARTDNS_OPENSSL_V_1_0_0)
 	CRYPTO_set_id_callback(_pthreads_thread_id);
 #else
 	CRYPTO_THREADID_set_callback(_pthreads_thread_id_cb);
@@ -685,11 +689,25 @@ void SSL_CRYPTO_thread_cleanup(void)
 	lock_cs = NULL;
 	lock_count = NULL;
 }
+#else
+/*
+ * OpenSSL 1.1.0+ is thread safe by construction and removed the locking
+ * callbacks. Both entry points stay defined because util.h declares them
+ * unconditionally and smartdns.c calls them on every build.
+ */
+void SSL_CRYPTO_thread_setup(void)
+{
+}
+
+void SSL_CRYPTO_thread_cleanup(void)
+{
+}
 #endif
 
 unsigned char *SSL_SHA256(const unsigned char *d, size_t n, unsigned char *md)
 {
 	static unsigned char m[SHA256_DIGEST_LENGTH];
+	unsigned int digest_len = 0;
 
 	if (md == NULL) {
 		md = m;
@@ -700,13 +718,17 @@ unsigned char *SSL_SHA256(const unsigned char *d, size_t n, unsigned char *md)
 		return NULL;
 	}
 
-	EVP_MD_CTX_init(ctx);
-	EVP_DigestInit_ex(ctx, EVP_sha256(), NULL);
-	EVP_DigestUpdate(ctx, d, n);
-	EVP_DigestFinal_ex(ctx, m, NULL);
+	/* EVP_MD_CTX_create() already initialises the context, so the extra
+	 * EVP_MD_CTX_init() this used to call was a no-op. The digest must also be
+	 * written to the caller's buffer, not unconditionally to the static one. */
+	if (EVP_DigestInit_ex(ctx, EVP_sha256(), NULL) != 1 || EVP_DigestUpdate(ctx, d, n) != 1 ||
+		EVP_DigestFinal_ex(ctx, md, &digest_len) != 1) {
+		EVP_MD_CTX_destroy(ctx);
+		return NULL;
+	}
 	EVP_MD_CTX_destroy(ctx);
 
-	return (md);
+	return md;
 }
 
 int SSL_base64_decode_ext(const char *in, unsigned char *out, int max_outlen, int url_safe, int auto_padding)

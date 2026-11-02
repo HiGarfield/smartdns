@@ -29,13 +29,11 @@
 #include "smartdns/lib/stringutil.h"
 #include "smartdns/util.h"
 
+#include "smartdns/lib/openssl_compat.h"
+
 #include <net/if.h>
 #include <netinet/ip.h>
 #include <netinet/tcp.h>
-#include <openssl/err.h>
-#include <openssl/rand.h>
-#include <openssl/ssl.h>
-#include <openssl/x509v3.h>
 #include <sys/epoll.h>
 #include <sys/ioctl.h>
 
@@ -62,21 +60,10 @@ static ssize_t _ssl_write_ext2(struct dns_server_info *server, SSL *ssl, const v
 		return SSL_ERROR_SYSCALL;
 	}
 
-#if defined(OSSL_QUIC1_VERSION) && !defined(OPENSSL_NO_QUIC)
-	ret = SSL_write_ex2(ssl, buff, num, flags, &written);
-#elif OPENSSL_VERSION_NUMBER >= 0x10101000L
-	ret = SSL_write_ex(ssl, buff, num, &written);
-#else
-	ret = SSL_write(ssl, buff, num);
-	written = ret;
-#endif
+	ret = dns_SSL_write(ssl, buff, num, flags, &written);
 	pthread_mutex_unlock(&server->lock);
 
-	if (ret <= 0) {
-		return ret;
-	}
-
-	return written;
+	return ret;
 }
 
 int _ssl_shutdown(struct dns_server_info *server)
@@ -326,25 +313,18 @@ SSL_CTX *_ssl_ctx_get(int is_quic)
 		return *ssl_ctx;
 	}
 
-#if (OPENSSL_VERSION_NUMBER >= 0x10100000L)
-#if (OPENSSL_VERSION_NUMBER >= 0x30200000L)
 	if (is_quic) {
+#if defined(OSSL_QUIC1_VERSION) && !defined(OPENSSL_NO_QUIC)
 		*ssl_ctx = SSL_CTX_new(OSSL_QUIC_client_method());
-	} else {
-		*ssl_ctx = SSL_CTX_new(TLS_client_method());
-	}
 #else
-	if (is_quic) {
-		/* QUIC is not available in this OpenSSL build; go through the
+		/* QUIC requires OpenSSL 3.2+, so it is unavailable here. Go through the
 		 * unified error path so server_list_lock is released and NULL is
-		 * returned consistently. */
+		 * returned consistently, instead of allocating an unused TLS context. */
 		goto errout;
+#endif
+	} else {
+		*ssl_ctx = SSL_CTX_new(dns_TLS_client_method());
 	}
-	*ssl_ctx = SSL_CTX_new(TLS_client_method());
-#endif
-#else
-	*ssl_ctx = SSL_CTX_new(SSLv23_client_method());
-#endif
 
 	if (*ssl_ctx == NULL) {
 		tlog(TLOG_ERROR, "init ssl failed.");
@@ -775,19 +755,19 @@ static int _dns_client_tls_get_cert_CN(X509 *cert, char *cn, int max_cn_len)
 		goto errout;
 	}
 
-	cert_index = X509_NAME_get_index_by_NID(cert_name, NID_commonName, -1);
+	cert_index = X509_NAME_get_index_by_NID(dns_unconst(X509_NAME *, cert_name), NID_commonName, -1);
 	if (cert_index < 0) {
 		tlog(TLOG_ERROR, "cannot found x509 name");
 		goto errout;
 	}
 
-	cert_entry = X509_NAME_get_entry(cert_name, cert_index);
+	cert_entry = X509_NAME_get_entry(dns_unconst(X509_NAME *, cert_name), cert_index);
 	if (cert_entry == NULL) {
 		tlog(TLOG_ERROR, "get x509 name entry failed.");
 		goto errout;
 	}
 
-	cert_data = X509_NAME_ENTRY_get_data(cert_entry);
+	cert_data = X509_NAME_ENTRY_get_data(dns_unconst(X509_NAME_ENTRY *, cert_entry));
 	if (cert_data == NULL) {
 		tlog(TLOG_ERROR, "get x509 name data failed.");
 		goto errout;
@@ -997,7 +977,7 @@ static int _dns_client_tls_verify(struct dns_server_info *server_info)
 	}
 
 	/* get spki pin */
-	key_len = i2d_X509_PUBKEY(pubkey, NULL);
+	key_len = i2d_X509_PUBKEY(dns_unconst(X509_PUBKEY *, pubkey), NULL);
 	if (key_len <= 0) {
 		tlog(TLOG_ERROR, "get x509 public key failed.");
 		goto errout;
@@ -1010,7 +990,7 @@ static int _dns_client_tls_verify(struct dns_server_info *server_info)
 		goto errout;
 	}
 
-	i2d_X509_PUBKEY(pubkey, &key_data_tmp);
+	i2d_X509_PUBKEY(dns_unconst(X509_PUBKEY *, pubkey), &key_data_tmp);
 
 	/* Get the SHA256 value of SPKI */
 	key_sha256 = SSL_SHA256(key_data, key_len, NULL);

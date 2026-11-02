@@ -28,6 +28,10 @@ ifndef CFLAGS
  CFLAGS +=-fPIC -Wall -Wstrict-prototypes -fno-omit-frame-pointer -Wstrict-aliasing -funwind-tables -Wmissing-prototypes -Wshadow -Wextra -Wno-unused-parameter -Wno-implicit-fallthrough
 endif
 
+# Keep in sync with src/Makefile: pin the language standard so the plugin builds
+# identically on GCC 7.5 and on compilers that default to a newer standard.
+override CFLAGS += -std=gnu11
+
 override CFLAGS +=-Iinclude -I../../src/include -I../../src
 override CFLAGS += -DBASE_FILE_NAME='"$(notdir $<)"'
 override CFLAGS += $(EXTRA_CFLAGS)

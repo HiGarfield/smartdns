@@ -37,8 +37,14 @@ ifndef CFLAGS
  CFLAGS +=-Wall -Wstrict-prototypes -fno-omit-frame-pointer -Wstrict-aliasing -funwind-tables -Wmissing-prototypes -Wshadow -Wextra -Wno-unused-parameter -Wno-implicit-fallthrough
 endif
 
+# Pin the language standard. GCC 7.5 defaults to gnu11, but GCC 11+ defaults to
+# gnu17 and GCC 15 to gnu23, where typeof/bool/true/false become keywords. The
+# tree relies on the GNU extensions available in gnu11, so fixing the standard
+# keeps the build identical across the supported compiler range.
+override CFLAGS += -std=gnu11
+
 HASH := \#
-HAS_UNWIND := $(shell printf '$(HASH)include <unwind.h>\nvoid main() { _Unwind_Backtrace(0, 0);}' | $(CC) -x c - -o /dev/null >/dev/null 2>&1 && echo -n 1 || echo -n 0)
+HAS_UNWIND := $(shell printf '$(HASH)include <unwind.h>\nint main(void) { _Unwind_Backtrace(0, 0); return 0; }' | $(CC) -x c - -o /dev/null >/dev/null 2>&1 && echo -n 1 || echo -n 0)
 ifeq ($(HAS_UNWIND), 1)
 override CFLAGS += -DHAVE_UNWIND_BACKTRACE
 endif
@@ -94,7 +100,7 @@ else
  override LDFLAGS += -lssl -lcrypto -lpthread -ldl -lm -rdynamic
 endif
 
-USE_ATOMIC := $(shell printf '$(HASH)include <stdint.h>\nvoid main() { uint64_t value=0;__atomic_add_fetch(&value, 1, __ATOMIC_SEQ_CST);__atomic_load_n(&value,__ATOMIC_SEQ_CST);}' | $(CC) -x c - -o /dev/null >/dev/null 2>&1 && echo -n 1 || echo -n 0)
+USE_ATOMIC := $(shell printf '$(HASH)include <stdint.h>\nint main(void) { uint64_t value=0;__atomic_add_fetch(&value, 1, __ATOMIC_SEQ_CST);__atomic_load_n(&value,__ATOMIC_SEQ_CST); return 0; }' | $(CC) -x c - -o /dev/null >/dev/null 2>&1 && echo -n 1 || echo -n 0)
 ifeq ($(USE_ATOMIC), 0)
  override CFLAGS += -DUSE_ATOMIC
  override LDFLAGS += -latomic 

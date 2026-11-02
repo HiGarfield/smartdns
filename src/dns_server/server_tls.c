@@ -29,8 +29,7 @@
 
 #include <errno.h>
 #include <netinet/tcp.h>
-#include <openssl/err.h>
-#include <openssl/ssl.h>
+#include "smartdns/lib/openssl_compat.h"
 #include <pthread.h>
 #include <string.h>
 #include <sys/epoll.h>
@@ -492,14 +491,10 @@ int _dns_server_socket_tls(struct dns_bind_ip *bind_ip, DNS_CONN_TYPE conn_type)
 
 	setsockopt(fd, SOL_TCP, TCP_FASTOPEN, &on, sizeof(on));
 
-#if (OPENSSL_VERSION_NUMBER >= 0x10100000L)
-	method = TLS_server_method();
+	method = dns_TLS_server_method();
 	if (method == NULL) {
 		goto errout;
 	}
-#else
-	method = SSLv23_server_method();
-#endif
 
 	ssl_ctx = SSL_CTX_new(method);
 	if (ssl_ctx == NULL) {

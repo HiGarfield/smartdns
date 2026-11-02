@@ -24,7 +24,10 @@
 
 #include "smartdns/http_parse.h"
 
-static int _dns_client_http3_has_content_length(struct http_head *http_head)
+/* Only referenced from the QUIC enabled paths below; when the linked OpenSSL
+ * has no QUIC support the whole file compiles down to stubs and this would be
+ * reported as unused. */
+static __attribute__((unused)) int _dns_client_http3_has_content_length(struct http_head *http_head)
 {
 	const char *content_len = http_head_get_fields_value(http_head, "content-length");
 	return content_len != NULL && content_len[0] != '\0';
